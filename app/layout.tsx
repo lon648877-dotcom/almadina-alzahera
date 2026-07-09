@@ -10,6 +10,10 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "ALMADINA ALZAHERA",
   description: "Engineering & Construction Company",
+
+  verification: {
+    google: "g0NHz4Xeo4JCiBv6mJtH8XgmRu2BXKyHvvdu7dT-XJI",
+  },
 };
 
 export default function RootLayout({
