@@ -1,284 +1,216 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+const navLinks = [
+  { href: "/", label: "HOME" },
+  { href: "/about", label: "ABOUT" },
+  { href: "/services", label: "SERVICES" },
+  { href: "/qhse", label: "QHSE" },
+  { href: "/gallery", label: "GALLERY" },
+  { href: "/careers", label: "CAREERS" },
+  { href: "/contact", label: "CONTACT" },
+];
 
 export default function Navbar() {
   const pathname = usePathname();
 
   const isHomePage = pathname === "/";
+
   const [scrolled, setScrolled] = useState(!isHomePage);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    function handleScroll() {
-      setScrolled(!isHomePage || window.scrollY > 80);
-    }
+    const handleScroll = () => {
+      setScrolled(!isHomePage || window.scrollY > 70);
+    };
 
-    window.addEventListener("scroll", handleScroll);
     handleScroll();
+    window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [isHomePage]);
 
-  const textColor = scrolled ? "#102331" : "#ffffff";
-  const subTextColor = scrolled ? "#475569" : "#e2e8f0";
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const solidHeader = scrolled || menuOpen || !isHomePage;
 
   return (
     <header
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 99999,
-        backgroundColor: scrolled ? "#ffffff" : "transparent",
-        boxShadow: scrolled ? "0 8px 30px rgba(15,35,49,0.12)" : "none",
-        transition: "all 0.35s ease",
-      }}
+      className={`main-header ${solidHeader ? "main-header-solid" : ""}`}
     >
-      <div
-        style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-          padding: scrolled ? "10px 40px" : "22px 40px 14px",
-          transition: "all 0.35s ease",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            borderBottom: scrolled
-              ? "1px solid #e5e7eb"
-              : "1px solid rgba(255,255,255,0.25)",
-            paddingBottom: scrolled ? "10px" : "16px",
-          }}
-        >
-          <Link
-            href="/"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "18px",
-              textDecoration: "none",
-            }}
-          >
+      <div className="main-header-container">
+        <div className="header-top">
+          <Link href="/" className="header-brand">
             <Image
               src="/logo.png"
               alt="ALMADINA ALZAHERA"
-              width={scrolled ? 95 : 145}
-              height={scrolled ? 62 : 90}
+              width={120}
+              height={82}
               priority
-              style={{
-                objectFit: "contain",
-                transition: "all 0.35s ease",
-              }}
+              className="header-logo"
             />
 
-            <div>
-              <h1
-                style={{
-                  margin: 0,
-                  color: textColor,
-                  fontSize: scrolled ? "20px" : "30px",
-                  fontWeight: 900,
-                  letterSpacing: "1px",
-                  transition: "all 0.35s ease",
-                }}
-              >
-                ALMADINA ALZAHERA
-              </h1>
+            <div className="header-company">
+              <p className="header-company-name">ALMADINA ALZAHERA</p>
 
-              <p
-                style={{
-                  margin: "5px 0 0",
-                  color: textColor,
-                  fontSize: scrolled ? "11px" : "16px",
-                  fontWeight: 800,
-                  letterSpacing: scrolled ? "2px" : "4px",
-                  transition: "all 0.35s ease",
-                }}
-              >
+              <p className="header-company-line">
                 GEN.MAINT AND WATER
               </p>
 
-              <p
-                style={{
-                  margin: "5px 0 0",
-                  color: textColor,
-                  fontSize: scrolled ? "11px" : "16px",
-                  fontWeight: 800,
-                  letterSpacing: scrolled ? "2px" : "4px",
-                  transition: "all 0.35s ease",
-                }}
-              >
+              <p className="header-company-line">
                 DISTRIBUTION - L.L.C - S.P.C
               </p>
             </div>
           </Link>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: scrolled ? "28px" : "48px",
-            }}
-          >
-            <InfoBox
+          <div className="header-contact">
+            <ContactInfo
               icon="⌂"
               title="P.O.Box: 18402"
               text="Al Ain, Abu Dhabi, UAE"
-              textColor={textColor}
-              subTextColor={subTextColor}
-              scrolled={scrolled}
             />
 
-            <InfoBox
+            <ContactInfo
               icon="✉"
               title="Send us a mail"
               text="info@almadinaalzahera.com"
-              textColor={textColor}
-              subTextColor={subTextColor}
-              scrolled={scrolled}
             />
           </div>
+
+          <button
+            type="button"
+            className={`menu-toggle ${menuOpen ? "menu-toggle-open" : ""}`}
+            onClick={() => setMenuOpen((current) => !current)}
+            aria-label="Open navigation menu"
+            aria-expanded={menuOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
 
-        <nav
-          style={{
-            height: scrolled ? "54px" : "70px",
-            display: "flex",
-            alignItems: "center",
-            gap: scrolled ? "36px" : "48px",
-            transition: "all 0.35s ease",
-          }}
-        >
-          <Nav href="/" label="HOME" scrolled={scrolled} active={pathname === "/"} />
-          <Nav href="/about" label="ABOUT" scrolled={scrolled} active={pathname === "/about"} />
-          <Nav href="/services" label="SERVICES" scrolled={scrolled} active={pathname === "/services"} />
-          <Nav href="/qhse" label="QHSE" scrolled={scrolled} active={pathname === "/qhse"} />
-          <Nav href="/gallery" label="GALLERY" scrolled={scrolled} active={pathname === "/gallery"} />
-          <Nav href="/careers" label="CAREERS" scrolled={scrolled} active={pathname === "/careers"} />
-          <Nav href="/contact" label="CONTACT" scrolled={scrolled} active={pathname === "/contact"} />
+        <nav className="desktop-navigation">
+          <div className="desktop-navigation-links">
+            {navLinks.map((link) => (
+              <NavigationLink
+                key={link.href}
+                href={link.href}
+                label={link.label}
+                active={pathname === link.href}
+              />
+            ))}
+          </div>
 
-          <Link
-            href="/contact"
-            style={{
-              marginLeft: "auto",
-              backgroundColor: "#0f7c8f",
-              color: "#ffffff",
-              textDecoration: "none",
-              padding: scrolled ? "13px 26px" : "17px 34px",
-              borderRadius: "6px",
-              fontWeight: 900,
-              fontSize: "15px",
-              transition: "all 0.35s ease",
-            }}
-          >
+          <Link href="/contact" className="desktop-quote-button">
             + GET A QUOTE
           </Link>
         </nav>
+      </div>
+
+      <div
+        className={`mobile-navigation-overlay ${
+          menuOpen ? "mobile-navigation-overlay-open" : ""
+        }`}
+        onClick={() => setMenuOpen(false)}
+      >
+        <div
+          className={`mobile-navigation ${
+            menuOpen ? "mobile-navigation-open" : ""
+          }`}
+          onClick={(event) => event.stopPropagation()}
+        >
+          <nav className="mobile-navigation-links">
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`mobile-navigation-link ${
+                    active ? "mobile-navigation-link-active" : ""
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="mobile-navigation-contact">
+            <p>
+              <strong>P.O.Box:</strong> 18402
+            </p>
+
+            <p>Al Ain, Abu Dhabi, UAE</p>
+
+            <a href="mailto:info@almadinaalzahera.com">
+              info@almadinaalzahera.com
+            </a>
+          </div>
+
+          <Link href="/contact" className="mobile-quote-button">
+            + GET A QUOTE
+          </Link>
+        </div>
       </div>
     </header>
   );
 }
 
-function InfoBox({
+function ContactInfo({
   icon,
   title,
   text,
-  textColor,
-  subTextColor,
-  scrolled,
 }: {
   icon: string;
   title: string;
   text: string;
-  textColor: string;
-  subTextColor: string;
-  scrolled: boolean;
 }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "12px",
-      }}
-    >
-      <div
-        style={{
-          width: scrolled ? "42px" : "56px",
-          height: scrolled ? "42px" : "56px",
-          border: scrolled
-            ? "1px solid #e5e7eb"
-            : "1px solid rgba(255,255,255,0.4)",
-          borderRadius: "6px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: scrolled ? "#0f7c8f" : "#ffffff",
-          fontSize: scrolled ? "18px" : "24px",
-          transition: "all 0.35s ease",
-        }}
-      >
-        {icon}
-      </div>
+    <div className="header-contact-item">
+      <div className="header-contact-icon">{icon}</div>
 
       <div>
-        <strong
-          style={{
-            display: "block",
-            color: textColor,
-            fontSize: scrolled ? "13px" : "15px",
-            fontWeight: 900,
-            transition: "all 0.35s ease",
-          }}
-        >
-          {title}
-        </strong>
-
-        <p
-          style={{
-            margin: "5px 0 0",
-            color: subTextColor,
-            fontSize: scrolled ? "12px" : "14px",
-            transition: "all 0.35s ease",
-          }}
-        >
-          {text}
-        </p>
+        <strong>{title}</strong>
+        <p>{text}</p>
       </div>
     </div>
   );
 }
 
-function Nav({
+function NavigationLink({
   href,
   label,
-  scrolled,
   active,
 }: {
   href: string;
   label: string;
-  scrolled: boolean;
   active: boolean;
 }) {
   return (
     <Link
       href={href}
-      style={{
-        color: active ? "#0f7c8f" : scrolled ? "#102331" : "#ffffff",
-        textDecoration: "none",
-        fontSize: "15px",
-        fontWeight: 900,
-        transition: "all 0.25s ease",
-        borderBottom: active ? "3px solid #0f7c8f" : "3px solid transparent",
-        paddingBottom: "8px",
-      }}
+      className={`desktop-navigation-link ${
+        active ? "desktop-navigation-link-active" : ""
+      }`}
     >
       {label}
     </Link>
