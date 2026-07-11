@@ -13,26 +13,26 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default:
-      "المدينة الزاهرة | ALMADINA ALZAHERA | Water Infrastructure UAE",
-    template: "%s | المدينة الزاهرة",
+    default: "ALMADINA ALZAHERA | المدينة الزاهرة",
+    template: "%s | ALMADINA ALZAHERA",
   },
 
+  applicationName: "ALMADINA ALZAHERA",
+
   description:
-    "شركة المدينة الزاهرة ALMADINA ALZAHERA متخصصة في شبكات توزيع المياه، خطوط نقل المياه، تركيب مواسير HDPE، الصيانة، الاختبارات والتشغيل في دولة الإمارات.",
+    "ALMADINA ALZAHERA (شركة المدينة الزاهرة) is a UAE engineering company specialized in water distribution networks, transmission pipelines, HDPE installation, maintenance, testing and commissioning.",
 
   keywords: [
+    "ALMADINA ALZAHERA",
     "المدينة الزاهرة",
     "شركة المدينة الزاهرة",
-    "المدينة الزاهرة الإمارات",
-    "ALMADINA ALZAHERA",
-    "Almadina Alzahera UAE",
-    "water infrastructure UAE",
-    "water distribution UAE",
-    "HDPE pipeline installation UAE",
-    "water transmission pipelines",
-    "general maintenance UAE",
-    "Al Ain water company",
+    "Water Infrastructure UAE",
+    "HDPE Pipeline",
+    "Water Distribution",
+    "Transmission Pipeline",
+    "General Maintenance UAE",
+    "Al Ain",
+    "Abu Dhabi",
   ],
 
   authors: [
@@ -51,28 +51,26 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    locale: "ar_AE",
-    alternateLocale: ["en_AE"],
     url: siteUrl,
-    siteName: "المدينة الزاهرة | ALMADINA ALZAHERA",
-    title: "المدينة الزاهرة | ALMADINA ALZAHERA",
+    siteName: "ALMADINA ALZAHERA",
+    title: "ALMADINA ALZAHERA | المدينة الزاهرة",
     description:
-      "شركة متخصصة في شبكات المياه وخطوط النقل وتركيب HDPE والصيانة والاختبارات والتشغيل في الإمارات.",
+      "Professional Water Infrastructure, HDPE Pipeline Installation, Maintenance, Testing and Commissioning across the UAE.",
     images: [
       {
         url: "/hero-tank.png",
         width: 1200,
         height: 630,
-        alt: "شركة المدينة الزاهرة لخدمات البنية التحتية وشبكات المياه",
+        alt: "ALMADINA ALZAHERA",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "المدينة الزاهرة | ALMADINA ALZAHERA",
+    title: "ALMADINA ALZAHERA",
     description:
-      "خدمات شبكات المياه وخطوط النقل وتركيب HDPE والصيانة في الإمارات.",
+      "Professional Water Infrastructure Services across the UAE.",
     images: ["/hero-tank.png"],
   },
 
@@ -82,8 +80,8 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      "max-image-preview": "large",
       "max-snippet": -1,
+      "max-image-preview": "large",
       "max-video-preview": -1,
     },
   },
@@ -94,6 +92,7 @@ export const metadata: Metadata = {
 
   icons: {
     icon: "/icon.png",
+    shortcut: "/icon.png",
     apple: "/icon.png",
   },
 };
@@ -103,16 +102,13 @@ const websiteJsonLd = {
   "@type": "WebSite",
   "@id": `${siteUrl}/#website`,
   url: siteUrl,
-  name: "المدينة الزاهرة",
+  name: "ALMADINA ALZAHERA",
   alternateName: [
-    "ALMADINA ALZAHERA",
-    "Almadina Alzahera",
+    "المدينة الزاهرة",
     "شركة المدينة الزاهرة",
+    "Almadina Alzahera",
   ],
-  inLanguage: ["ar-AE", "en-AE"],
-  publisher: {
-    "@id": `${siteUrl}/#organization`,
-  },
+  inLanguage: ["en-AE", "ar-AE"],
 };
 
 const organizationJsonLd = {
@@ -123,13 +119,10 @@ const organizationJsonLd = {
   alternateName: [
     "المدينة الزاهرة",
     "شركة المدينة الزاهرة",
-    "Almadina Alzahera",
   ],
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   image: `${siteUrl}/hero-tank.png`,
-  description:
-    "شركة المدينة الزاهرة متخصصة في شبكات توزيع المياه، خطوط النقل، تركيب مواسير HDPE، الصيانة، الاختبارات والتشغيل في دولة الإمارات.",
   email: "info@almadinaalzahera.com",
   telephone: "+971507605744",
   address: {
@@ -139,34 +132,27 @@ const organizationJsonLd = {
     addressRegion: "Abu Dhabi",
     addressCountry: "AE",
   },
-  areaServed: {
-    "@type": "Country",
-    name: "United Arab Emirates",
-  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body className={poppins.className}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(websiteJsonLd),
           }}
         />
 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd).replace(
-              /</g,
-              "\\u003c"
-            ),
+            __html: JSON.stringify(organizationJsonLd),
           }}
         />
 
