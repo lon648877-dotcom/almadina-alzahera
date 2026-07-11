@@ -22,16 +22,16 @@ export default function AboutHome() {
 
         <div>
           <p className="about-home-text">
-            Almadina Alzahera is a leading company specialized in
-            General Maintenance and Water Distribution services
-            across the UAE.
+            <strong>ALMADINA ALZAHERA – شركة المدينة الزاهرة</strong> is a
+  UAE-based company specialized in General Maintenance, Water
+  Distribution Networks, transmission pipelines and HDPE works
+  across the United Arab Emirates.
           </p>
 
           <p className="about-home-text">
-            We are committed to delivering innovative, safe and
-            sustainable solutions that exceed our clients'
-            expectations while maintaining the highest standards
-            of quality and workmanship.
+            شركة المدينة الزاهرة ملتزمة بتقديم حلول آمنة وموثوقة ومستدامة
+  لمشروعات البنية التحتية وشبكات المياه، مع الحفاظ على أعلى معايير
+  الجودة والسلامة والتنفيذ.
           </p>
 
           <Link

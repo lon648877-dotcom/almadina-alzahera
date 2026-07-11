@@ -2028,4 +2028,34 @@ body {
     font-size: 18px;
     transform: none;
   }
+}.hero-brand-label {
+  margin-bottom: 18px;
+}
+
+.hero-brand-label p {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: 19px;
+  line-height: 1.4;
+  font-weight: 800;
+  direction: rtl;
+  text-align: left;
+}
+
+.hero-brand-label span {
+  display: block;
+  color: #0fbdcf;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 600px) {
+  .hero-brand-label p {
+    font-size: 17px;
+  }
+
+  .hero-brand-label span {
+    font-size: 11px;
+  }
 }

@@ -55,7 +55,10 @@ export default function Hero() {
             marginBottom: "18px",
           }}
         >
-          RELIABLE. SAFE. SUSTAINABLE.
+          <div className="hero-brand-label">
+  <p>شركة المدينة الزاهرة</p>
+  <span>RELIABLE. SAFE. SUSTAINABLE.</span>
+</div>
         </p>
 
         <h1

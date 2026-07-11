@@ -13,27 +13,32 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "ALMADINA ALZAHERA | Water Infrastructure & Maintenance",
-    template: "%s | ALMADINA ALZAHERA",
+    default:
+      "المدينة الزاهرة | ALMADINA ALZAHERA | Water Infrastructure UAE",
+    template: "%s | المدينة الزاهرة",
   },
 
   description:
-    "ALMADINA ALZAHERA provides water distribution networks, transmission pipelines, HDPE installation, maintenance, testing and commissioning services across the UAE.",
+    "شركة المدينة الزاهرة ALMADINA ALZAHERA متخصصة في شبكات توزيع المياه، خطوط نقل المياه، تركيب مواسير HDPE، الصيانة، الاختبارات والتشغيل في دولة الإمارات.",
 
   keywords: [
+    "المدينة الزاهرة",
+    "شركة المدينة الزاهرة",
+    "المدينة الزاهرة الإمارات",
     "ALMADINA ALZAHERA",
-    "water distribution UAE",
+    "Almadina Alzahera UAE",
     "water infrastructure UAE",
-    "HDPE pipeline installation",
+    "water distribution UAE",
+    "HDPE pipeline installation UAE",
     "water transmission pipelines",
     "general maintenance UAE",
-    "pipeline maintenance",
-    "Al Ain engineering company",
+    "Al Ain water company",
   ],
 
   authors: [
     {
       name: "ALMADINA ALZAHERA",
+      url: siteUrl,
     },
   ],
 
@@ -46,27 +51,28 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    locale: "en_AE",
+    locale: "ar_AE",
+    alternateLocale: ["en_AE"],
     url: siteUrl,
-    siteName: "ALMADINA ALZAHERA",
-    title: "ALMADINA ALZAHERA | Water Infrastructure & Maintenance",
+    siteName: "المدينة الزاهرة | ALMADINA ALZAHERA",
+    title: "المدينة الزاهرة | ALMADINA ALZAHERA",
     description:
-      "Professional water infrastructure, HDPE pipeline, maintenance, testing and commissioning services across the UAE.",
+      "شركة متخصصة في شبكات المياه وخطوط النقل وتركيب HDPE والصيانة والاختبارات والتشغيل في الإمارات.",
     images: [
       {
         url: "/hero-tank.png",
         width: 1200,
         height: 630,
-        alt: "ALMADINA ALZAHERA Water Infrastructure",
+        alt: "شركة المدينة الزاهرة لخدمات البنية التحتية وشبكات المياه",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "ALMADINA ALZAHERA",
+    title: "المدينة الزاهرة | ALMADINA ALZAHERA",
     description:
-      "Water infrastructure, pipeline and maintenance services across the UAE.",
+      "خدمات شبكات المياه وخطوط النقل وتركيب HDPE والصيانة في الإمارات.",
     images: ["/hero-tank.png"],
   },
 
@@ -92,6 +98,53 @@ export const metadata: Metadata = {
   },
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  url: siteUrl,
+  name: "المدينة الزاهرة",
+  alternateName: [
+    "ALMADINA ALZAHERA",
+    "Almadina Alzahera",
+    "شركة المدينة الزاهرة",
+  ],
+  inLanguage: ["ar-AE", "en-AE"],
+  publisher: {
+    "@id": `${siteUrl}/#organization`,
+  },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
+  name: "ALMADINA ALZAHERA",
+  alternateName: [
+    "المدينة الزاهرة",
+    "شركة المدينة الزاهرة",
+    "Almadina Alzahera",
+  ],
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  image: `${siteUrl}/hero-tank.png`,
+  description:
+    "شركة المدينة الزاهرة متخصصة في شبكات توزيع المياه، خطوط النقل، تركيب مواسير HDPE، الصيانة، الاختبارات والتشغيل في دولة الإمارات.",
+  email: "info@almadinaalzahera.com",
+  telephone: "+971507605744",
+  address: {
+    "@type": "PostalAddress",
+    postOfficeBoxNumber: "18402",
+    addressLocality: "Al Ain",
+    addressRegion: "Abu Dhabi",
+    addressCountry: "AE",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "United Arab Emirates",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -99,7 +152,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd).replace(
+              /</g,
+              "\\u003c"
+            ),
+          }}
+        />
+
+        {children}
+      </body>
     </html>
   );
 }
